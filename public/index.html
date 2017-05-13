@@ -18,15 +18,46 @@
             <label>Display name</label>
             <input type="text" name="name" autofocus/>
         </div>
+        <strong>Currently Online Chat Rooms</strong>
+        <div class="form-field">
+            <Select id="roomlist" onchange="updateRooms(this)">
+            </Select>
+        </div>
         <div class="form-field">
             <label>Room name</label>
-            <input type="text" name="room"/>
+            <input type="text" name="room" id="Rname"/>
         </div>
         <div class="form-field">
             <button>Join</button>
         </div>
     </form>
 </div>
+
+
+
+<script src="jquery-3.2.0.min.js" type="text/javascript"></script>
+<Script src="socket.io.js"></Script>
+<script>
+    function updateRooms() {
+        var roomname = $("#roomlist :selected").text();
+        $("#Rname").attr("value",roomname);
+    }
+
+    var socket = io();
+    socket.emit("newUser",socket.id,(OnlineRoom)=>{
+            console.log(`rooms currently online ${OnlineRoom}` );
+            roomList(OnlineRoom);
+            updateRooms();
+    })
+
+    function roomList(onRoom) {
+        var select = $('#roomlist');
+        onRoom.forEach((element)=>{
+          var option = $("<option></option>").text(element);
+            select.append(option);
+        })
+    }
+</script>
 </body>
 
 </html>

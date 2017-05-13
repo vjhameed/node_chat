@@ -22,7 +22,12 @@ function generatem (admin,message){
     return {from:admin,text:message,createdat:new moment().valueOf()}
 }
 
+
 io.on("connection",(socket)=>{
+    socket.on("newUser",(id,callback)=>{
+        callback(user.getrooms());
+    })
+
     socket.on("disconnect",()=>{
         var use = user.removeuser(socket.id);
 

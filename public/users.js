@@ -33,6 +33,14 @@ class User {
         var namesarray = users.map((user)=> user.name)
         return namesarray;
     }
+
+    getrooms(){
+        var rooms = [];
+        this.users.forEach((element)=>{
+            rooms.push(element.room);
+        })
+        return rooms;
+    }
 }
 
 module.exports = {User};
