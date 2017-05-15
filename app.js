@@ -14,6 +14,9 @@ var user = new User();
 
 app.use(express.static("public"))
 
+app.get("/single",(req,res)=>{
+    res.send("hello to app")
+})
 function isreal(str){
     return typeof str === 'string' && str.trim().length > 0;
 }
